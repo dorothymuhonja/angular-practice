@@ -5,7 +5,7 @@ import { GoalService } from '../goal-service/goal.service';
 // import { HttpClient } from '@angular/common/http';
 import { QuoteRequestService } from '../quote-http/quote-request.service';
 import { Quote } from '../quote-class/quote';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-goal',
@@ -18,7 +18,9 @@ export class GoalComponent implements OnInit {
    alertService:AlertService;
    quote:Quote;
 
-  
+  goToUrl(id) {
+    this.router.navigate(['/goals',id])
+  }
 
   addNewGoal(goal) {
     let goalLength = this.goals.length;
@@ -27,10 +29,10 @@ export class GoalComponent implements OnInit {
     this.goals.push(goal)
   }
 
-  toggleDetails(index) {
-    this.goals[index].showDescription = !this.goals[index].showDescription;
+  // toggleDetails(index) {
+  //   this.goals[index].showDescription = !this.goals[index].showDescription;
     
-  }
+  // }
 
   deleteGoal(isComplete, index) {
     if(isComplete) {
@@ -44,7 +46,7 @@ export class GoalComponent implements OnInit {
   }
   
 
-   constructor(goalService:GoalService, alertService:AlertService, private quoteService:QuoteRequestService) { 
+   constructor(goalService:GoalService, alertService:AlertService, private quoteService:QuoteRequestService, private router:Router) { 
      this.goals = goalService.getGoals()
      this.alertService = alertService;
    }
